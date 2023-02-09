@@ -1,7 +1,6 @@
 import json
 import aiohttp
 import discord
-from disputils import EmbedPaginator
 import datetime
 from discord import Embed
 import plotly.express as px
@@ -39,7 +38,7 @@ async def on_message(ticker):
 
             embeds = await embed(getTdata, plotted)
             
-            await paginate(embeds,ticker,plotted)
+            await sendOut(embeds,ticker,plotted)
             
 
         except Exception as e:
@@ -164,7 +163,7 @@ async def embed(Tdata,plotted):
     
     return embeds
 
-async def paginate(embeds,ticker,plotted):
+async def sendOut(embeds,ticker,plotted):
     
     await ticker.channel.send(embed=embeds[0])
     
