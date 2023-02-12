@@ -85,6 +85,7 @@ async def tickerData(url,headers):
             
             d = {}
             d['tick'] = ticker_json['symbol']
+            d['marketCap'] = ticker_json['marketCap']['fmt']
             d['marketTime'] = ticker_json['regularMarketTime']['fmt']
             d['percentChangedDay'] = ticker_json['regularMarketChangePercent']['fmt']
             d['marketRange'] = ticker_json['regularMarketDayRange']['fmt']
@@ -137,7 +138,9 @@ async def embed(Tdata,plotted):
     
     embed.title = "${} Stock Info".format(Tdata['tick'])
     embed.description = "Market statistics and data for {}".format(Tdata['shortName'])
-    embed.add_field(name="Current Market Time", value=Tdata['tick'], inline=True)
+    embed.add_field(name="Ticker", value=Tdata['tick'], inline=True)
+    embed.add_field(name="Current Market Time", value=Tdata['marketTime'], inline=True)
+    embed.add_field(name="Market Cap", value=Tdata['marketCap'], inline=True)
     embed.add_field(name="24Hr High", value=Tdata['regMarketHigh'], inline=True)
     embed.add_field(name="24hr Low", value=Tdata['regMarketLow'], inline=True)
     embed.add_field(name="24Hr Difference", value=Tdata['regMarketChange'], inline=True)
